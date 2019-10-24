@@ -1,9 +1,3 @@
-/**
- * @license Copyright (c) 2017-2019 Radiant Media Player | https://www.radiantmediaplayer.com
- * rmp-vast 2.4.7
- * GitHub: https://github.com/radiantmediaplayer/rmp-vast
- * MIT License: https://github.com/radiantmediaplayer/rmp-vast/blob/master/LICENSE
- */
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 "use strict";
 
@@ -2889,7 +2883,7 @@ var _icons = _interopRequireDefault(require("./creatives/icons"));
     } // reset instance variables - once per session
 
 
-    _default.default.instanceVariables.call(this); // reset loadAds variables - this is reset at addestroyed 
+    _default.default.instanceVariables.call(this); // reset loadAds variables - this is reset at addestroyed
     // so that next loadAds is cleared
 
 
@@ -2988,7 +2982,7 @@ var _icons = _interopRequireDefault(require("./creatives/icons"));
 
       var linear = _currentCreative.getElementsByTagName('Linear'); // for now we ignore CreativeExtensions tag
       //let creativeExtensions = currentCreative.getElementsByTagName('CreativeExtensions');
-      // we expect 1 Linear or NonLinearAds tag 
+      // we expect 1 Linear or NonLinearAds tag
 
 
       if (nonLinearAds.length === 0 && linear.length === 0) {
@@ -3157,7 +3151,7 @@ var _icons = _interopRequireDefault(require("./creatives/icons"));
 
         this.runningAdPod = true; // clone array for purpose of API exposure
 
-        this.adPodApiInfo = (0, _toConsumableArray2.default)(this.adPod); // so we are in a pod but it may come from a wrapper so we need to ping 
+        this.adPodApiInfo = (0, _toConsumableArray2.default)(this.adPod); // so we are in a pod but it may come from a wrapper so we need to ping
         // wrapper trackings for each Ad of the pod
 
         this.adPodWrapperTrackings = (0, _toConsumableArray2.default)(this.trackingTags); // reduced adPod length to maxNumItemsInAdPod
@@ -3219,7 +3213,7 @@ var _icons = _interopRequireDefault(require("./creatives/icons"));
     }
 
     var inline = retainedAd.getElementsByTagName('InLine');
-    var wrapper = retainedAd.getElementsByTagName('Wrapper'); // 1 InLine or Wrapper element must be present 
+    var wrapper = retainedAd.getElementsByTagName('Wrapper'); // 1 InLine or Wrapper element must be present
 
     if (inline.length === 0 && wrapper.length === 0) {
       // in case this is a wrapper we need to ping for errors on originating tags
@@ -3260,10 +3254,10 @@ var _icons = _interopRequireDefault(require("./creatives/icons"));
     var adDescription = inlineOrWrapper[0].getElementsByTagName('Description');
     var creatives = inlineOrWrapper[0].getElementsByTagName('Creatives'); // Required InLine Elements are AdSystem, AdTitle, Impression, Creatives
     // Required Wrapper Elements are AdSystem, vastAdTagURI, Impression
-    // however in real word some adTag do not have impression or adSystem/adTitle tags 
-    // especially in the context of multiple redirects - since the IMA SDK allows those tags 
+    // however in real word some adTag do not have impression or adSystem/adTitle tags
+    // especially in the context of multiple redirects - since the IMA SDK allows those tags
     // to render we should do the same even if those adTags are not VAST-compliant
-    // so we only check and exit if missing required information to display ads 
+    // so we only check and exit if missing required information to display ads
 
     if (this.isWrapper) {
       if (this.vastAdTagURI.length === 0) {
@@ -3475,7 +3469,7 @@ var _icons = _interopRequireDefault(require("./creatives/icons"));
 
   var _onDestroyLoadAds = function _onDestroyLoadAds(vastUrl) {
     this.container.removeEventListener('addestroyed', this.onDestroyLoadAds);
-    this.loadAds(vastUrl);
+    this.loadAds(vastXml);
   };
 
   window.RmpVast.prototype.loadAds = function (vastUrl) {
@@ -3518,6 +3512,102 @@ var _icons = _interopRequireDefault(require("./creatives/icons"));
     }
 
     _makeAjaxRequest.call(this, vastUrl);
+  };
+
+  var _onDestroyLoadVASTXml = function _onDestroyLoadVASTXml(vastXml) {
+    this.container.removeEventListener('addestroyed', this.onDestroyLoadAds);
+    this.loadVASTXml(vastXml);
+  };
+
+  window.RmpVast.prototype.loadVASTXml = function (vastXml) {
+    if (DEBUG) {
+      _fw.default.log('loadAds starts');
+    } // if player is not initialized - this must be done now
+
+
+    if (!this.rmpVastInitialized) {
+      this.initialize();
+    } // if an ad is already on stage we need to clear it first before we can accept another ad request
+
+
+    if (this.getAdOnStage()) {
+      this.onDestroyLoadAds = (0, _bind.default)(_onDestroyLoadVASTXml).call(_onDestroyLoadVASTXml, this, vastXml);
+      this.container.addEventListener('addestroyed', this.onDestroyLoadAds);
+      this.stopAds();
+      return;
+    } // for useContentPlayerForAds we need to know early what is the content src
+    // so that we can resume content when ad finishes or on aderror
+
+
+    var contentCurrentTime = _contentPlayer.default.getCurrentTime.call(this);
+
+    if (this.useContentPlayerForAds) {
+      this.currentContentSrc = this.contentPlayer.src;
+
+      if (DEBUG) {
+        _fw.default.log('currentContentSrc is ' + this.currentContentSrc);
+      }
+
+      this.currentContentCurrentTime = contentCurrentTime;
+
+      if (DEBUG) {
+        _fw.default.log('currentContentCurrentTime is ' + this.currentContentCurrentTime);
+      } // on iOS we need to prevent seeking when linear ad is on stage
+
+
+      _contentPlayer.default.preventSeekingForCustomPlayback.call(this);
+    } // we check for required VAST URL and API here
+    // as we need to have this.currentContentSrc available for iOS
+
+
+    if (typeof vastXml !== 'string' || vastXml === '') {
+      _vastErrors.default.process.call(this, 1001);
+
+      return;
+    }
+
+    if (!_fw.default.hasDOMParser()) {
+      _vastErrors.default.process.call(this, 1002);
+
+      return;
+    }
+
+    _helpers.default.createApiEvent.call(this, 'adtagstartloading');
+
+    this.isWrapper = false;
+    this.vastAdTagURI = null;
+    this.adTagUrl = "embedded vast tag";
+
+    if (DEBUG) {
+      _fw.default.log('VAST loaded from ' + this.adTagUrl);
+    }
+
+    _helpers.default.createApiEvent.call(this, 'adtagloaded');
+
+    var xml;
+
+    try {
+      // Parse XML
+      var parser = new DOMParser();
+      xml = parser.parseFromString(vastXml, 'text/xml');
+
+      if (DEBUG) {
+        _fw.default.log('parsed XML document follows');
+
+        _fw.default.log(xml);
+      }
+    } catch (e) {
+      _fw.default.trace(e); // in case this is a wrapper we need to ping for errors on originating tags
+
+
+      _ping.default.error.call(this, 100);
+
+      _vastErrors.default.process.call(this, 100);
+
+      return;
+    }
+
+    _onXmlAvailable.call(this, xml);
   };
   /* module:begins */
 

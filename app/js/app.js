@@ -98,7 +98,7 @@
   /*** end of fullscreen management logic ***/
 
   /*** START of resizing logic ***/
-  // following is just some basic resizing logic for the purpose of the 
+  // following is just some basic resizing logic for the purpose of the
   // demo - you probably want to upgrade it
   var _getViewportWidth = function () {
     var viewportWidth = 0;
@@ -140,7 +140,7 @@
       desiredBitrate: 500
     }
   };
-  // new RmpVast instance - we pass id (required) and params (optional) 
+  // new RmpVast instance - we pass id (required) and params (optional)
   rmpVast = new RmpVast(id, params);
   // we get rmpVast framework to help us out for the app
   fw = rmpVast.getFramework();
@@ -277,14 +277,14 @@
 
     // new ad with loadAds
     var loadAds = document.getElementById('loadAds');
-    var newAdTagUrl = document.getElementById('newAdTagUrl');
+    var newAdTag = document.getElementById('newAdTag');
     loadAds.addEventListener('click', function () {
       firstClick = false;
       nowOffset = _getNow();
-      if (newAdTagUrl.value) {
-        adTag = newAdTagUrl.value;
+      if (newAdTag.value) {
+        adTag = newAdTag.value;
       }
-      rmpVast.loadAds(adTag);
+      rmpVast.loadVASTXml(adTag);
     });
 
   };

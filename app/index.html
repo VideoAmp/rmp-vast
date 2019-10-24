@@ -37,8 +37,104 @@
 						<button id="stopAds">stopAds()</button>
 					</div>
 					<div class="margin-top-10">
-						<input class="form-control" id="newAdTagUrl" type="url" placeholder="input your adTag URL here">
-						<button id="loadAds">loadAds(newAdTagUrl)</button>
+						<textarea class="form-control" id="newAdTag" cols="40" rows="5" placeholder="input your adTag here">
+<VAST version="3.0">
+    <Ad id="97">
+        <Wrapper>
+            <AdSystem version="3.0"></AdSystem>
+            <VASTAdTagURI>
+                <![CDATA[https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator]]>
+            </VASTAdTagURI>
+            <Impression>
+                <![CDATA[http://production-beacon-v3.videoamp.com/beacon/impression?brid=3ea50c5d-d043-bf4c-edee-84729d32f01c&ca=107&cr=101&data=SERqE2Btk1vwzOfEPDm7jW8ya0aRFB9ZD1AYWeR7JrUgIAKBID2ioMfZ5syeMWUyE6FE6hy7Bf-twrAfkk41UPL92BEL1mAAdMLhrcZ3PfM7uPTtqfy5NJIHEp7WgPSJpF0sQWcSXkNoJ_ov6XJIUdvHuEYVLtxRCWGE_F1OkTtCFfO-H9MJ0ot9THMMsao866YEjeZtRan5Kd_a259HVq2GSVY4XJq4MfSo5CUuF2F0XaLESNkmdrOZlwk%3D&im=1&li=102&lif=189&sp=1&ecp=${AUCTION_PRICE:HMAC-SHA1-XOR}]]>
+            </Impression>
+            <Error>
+                <![CDATA[http://production-beacon-v3.videoamp.com/beacon/errors?brid=3ea50c5d-d043-bf4c-edee-84729d32f01c&ca=107&cr=101&data=bfbMEvGLtcGuQW2WVDfqm8HHAXXgB77y14dFIe2qMaGBd09D8cz2aM23JaG1H-ETSij3YizMZE2sebv_AU35JGmqkasbUzHgrNnjg3x9XowCY67CeWTMyyxqVcLYfaW1AT0Ykhdw1XjnbwVXqFh5HUKYL65JKHdjAbVTcc5bma1xCx5Fz1E3u9KTYmccTA%3D%3D&im=1&li=102&lif=189&sp=1]]>
+            </Error>
+            <Creatives>
+                <Creative id="101" sequence="1" AdID="97">
+                    <Linear>
+                        <TrackingEvents>
+                            <Tracking event="creativeView">
+                                <![CDATA[http://production-beacon-v3.videoamp.com/beacon/creativeView?brid=3ea50c5d-d043-bf4c-edee-84729d32f01c&ca=107&cr=101&data=2ORcEYr4SbWWYNj8hmWHC1o4eSY6gy4wFHGOT4wochxnud2iwprAh7VBXJUm3zBLwWpw3hfPjFxR3BGRawGlMjx8D9kJNaO_p2zSk1OTvpFDIspPfQfTrUI5xW2pahnz_CdSewZV4WnEY-glsx73xEzK2MV_oKqRlOk8b23zQWiR1WqXU3WSSkjbysayLg%3D%3D&im=1&li=102&lif=189&sp=1]]>
+                            </Tracking>
+                            <Tracking event="start">
+                                <![CDATA[http://production-beacon-v3.videoamp.com/beacon/start?brid=3ea50c5d-d043-bf4c-edee-84729d32f01c&ca=107&cr=101&data=0kXr6hd3h9jQ97UZkjSWkxys_a-YDaT5lrm45UZx9-zoaTERdgibXc2My2ROAuovOXRr_n0DEzp-xJvVmpPHUDePpvjfrnX2Y1_Oy_JXH19ERZ2sLAjzo29c9ZEC4h3-vtmu2wNDJ06oMCDpRKNFJBrRfYuB8cvetJnehWGTSujgLLitanFRWO21bITT7A%3D%3D&im=1&li=102&lif=189&sp=1]]>
+                            </Tracking>
+                            <Tracking event="firstQuartile">
+                                <![CDATA[http://production-beacon-v3.videoamp.com/beacon/firstQuartile?brid=3ea50c5d-d043-bf4c-edee-84729d32f01c&ca=107&cr=101&data=aErQpCF8Eo6e5m-_1UGnzb2GpHrzxKJaW-56sQ3fKbamN_sg6legkVa2cpWGBMYy3rEZYe1A7D4l4NqxGD6B9-RWQmAdkg_fcqVSjInMVRM45s9fXe9E_be6vyaIFhkXUPSh9PXZhSqkE9dFrN9Dt_upQwFydCjFtVTeReZ_lhYEB0XpE1jkf2S6GX-vOg%3D%3D&im=1&li=102&lif=189&sp=1]]>
+                            </Tracking>
+                            <Tracking event="midpoint">
+                                <![CDATA[http://production-beacon-v3.videoamp.com/beacon/midpoint?brid=3ea50c5d-d043-bf4c-edee-84729d32f01c&ca=107&cr=101&data=dB1zxXYZzd6oXIH-16-bpdS5ZnqY6mhByPPLJIXY0okJ7u2ociik_UtO8B0f30yDsEDwv5glvwP1ow4q_zwYwrwOqtaG5SEHxqEp5XaEiz-kANyUPLzsGlXl6CJ-7xNwUV-kDlgUxSBzuVfZNhecRg4XQRNSBHxijeyOQoCnl7AQxKQ16ebUJHB3yFhpgg%3D%3D&im=1&li=102&lif=189&sp=1]]>
+                            </Tracking>
+                            <Tracking event="thirdQuartile">
+                                <![CDATA[http://production-beacon-v3.videoamp.com/beacon/thirdQuartile?brid=3ea50c5d-d043-bf4c-edee-84729d32f01c&ca=107&cr=101&data=to4jil--1r426Y3i93Xgjt6fBUIml3uR83ZZaQvxJkcG8z7ONtJKAWZZ_trfnrTEEfJWqSXPMC5dHetC3eUDFdWPChIXYsURQvscixkA6ij6JX3TfoP_xMpKqMC5iSfr-lxEGxP0WuAbxIHflI71XDDl9vT27Zv0LcZT-0wOkfcd5vbGUrClwe4txekTgA%3D%3D&im=1&li=102&lif=189&sp=1]]>
+                            </Tracking>
+                            <Tracking event="complete">
+                                <![CDATA[http://production-beacon-v3.videoamp.com/beacon/complete?brid=3ea50c5d-d043-bf4c-edee-84729d32f01c&ca=107&cr=101&data=T668-KtHODx94rHIw-C3YjsQ26QXheDCqJ21yi0TmNcFQtL0CMek8J8uWkSt_D2bZQjsoOIa4UobCxNSW2lIRP0hUhIimiWGHP-10_SOQLIxwIRBGyNnNatQP6cwH1-AtWnEuZdhNvWGumS6as49BvOGKa6OzQ1S_O9pHHQKAKE9BPjLctXNTO8Vwk-rtw%3D%3D&im=1&li=102&lif=189&sp=1]]>
+                            </Tracking>
+                            <Tracking event="mute">
+                                <![CDATA[http://production-beacon-v3.videoamp.com/beacon/mute?brid=3ea50c5d-d043-bf4c-edee-84729d32f01c&ca=107&cr=101&data=MX74t8HBGb7Coc7yGllsoeeIBF_jTzxVjD2axMDpyHgrfWXjkTdc6JzOQuueirpuMlENtuHEXIcuv5FNymGl0iGkqGJjnpLoO4NlA1BjHag-L9Omoh4XswR2sx5vxlTOInJ9tmO8TMNqTmmfR8NcO0ehYJ6YQYEqgbUxdqZjTiQb3DGJbaWvQwmM6Xagqw%3D%3D&im=1&li=102&lif=189&sp=1]]>
+                            </Tracking>
+                            <Tracking event="unmute">
+                                <![CDATA[http://production-beacon-v3.videoamp.com/beacon/unmute?brid=3ea50c5d-d043-bf4c-edee-84729d32f01c&ca=107&cr=101&data=B-QDrLf9-AHzUYMQ-pszRP1Z_3mvwtuKdZfEymeXwcy15enwacYTJlQMMDADABF92SrVPqskKzV1Fny3jvrbOM4CUbCMajeMDFzlaKthXeH3-T-I0ry29caHXwojcl89ajr7RrxUFJXdn8wYSOXhes42MiPGl1vfrbjLm-e5gyP8bBadhVni4LA7Rx9W6A%3D%3D&im=1&li=102&lif=189&sp=1]]>
+                            </Tracking>
+                            <Tracking event="pause">
+                                <![CDATA[http://production-beacon-v3.videoamp.com/beacon/pause?brid=3ea50c5d-d043-bf4c-edee-84729d32f01c&ca=107&cr=101&data=ASNbPc72JoJ_i0ni4yZX0NHEJuAbDuz2-Qwa40OntXFcO3YhmIwAWZCJxXI_7EqAe_eAsfRJ24Ex18PAWyk_4zwBrr1NkVpnucWjKxDzuyW6iB_1HoqNx2L3RVaxFu1HLSFN40j7u3KkDrmm_nuBEnykMD7AYuMUpO9ORpTRzpZeUikAQg0sj0FcAGVW_Q%3D%3D&im=1&li=102&lif=189&sp=1]]>
+                            </Tracking>
+                            <Tracking event="rewind">
+                                <![CDATA[http://production-beacon-v3.videoamp.com/beacon/rewind?brid=3ea50c5d-d043-bf4c-edee-84729d32f01c&ca=107&cr=101&data=DT6lFbpRtHoZzyEfXnmXFhcN1ra4dMDTrxaabrF54uIIA45ikWrKZEyiZbg4f1v7nHS8kOoen6eV7hB_wgla6CUN4wq27kO4tkrET_Tv-Cgi2mXqtYa8p5eLYkdeCbyYA_SCmQlpM1dbYPec2QJDQgV6mX5O0mIz4XftJak3q7sKGASP1ozbMobqOXq0hg%3D%3D&im=1&li=102&lif=189&sp=1]]>
+                            </Tracking>
+                            <Tracking event="resume">
+                                <![CDATA[http://production-beacon-v3.videoamp.com/beacon/resume?brid=3ea50c5d-d043-bf4c-edee-84729d32f01c&ca=107&cr=101&data=9SoSzPlCbk0Y1359zY3QhAz7DSA8lQ1Oq-RzlnsWX2FWsAtGXJwiLbq2jUGkbGeLg71VcEmcJfin819ae1xQJawLAF5C3CWzO6HZ7KBdoENxwver-so0TePBW_q05whmwam-6aO-o2f1Emdoftk_G469WOLxWpf2GDZ_R5o8WcIxEWYTc0X5CkQkAzNeqA%3D%3D&im=1&li=102&lif=189&sp=1]]>
+                            </Tracking>
+                            <Tracking event="fullscreen">
+                                <![CDATA[http://production-beacon-v3.videoamp.com/beacon/fullscreen?brid=3ea50c5d-d043-bf4c-edee-84729d32f01c&ca=107&cr=101&data=QAeBnk4fnFSdtGD1YWAckN1p4s8fX8Q01ky_fQndskdIVueUEPvt3xbV1YLKwFNxp4bj1iuIaC2SQ1wLK8PwFZfEREjkt2xDNl5io85Wf1nwltjTsspjAvIjbqU4mOq7f__WppU77Z6AhgF1YGPGpi3UUj5TzqOZcNCQXtNMS2FahS0TP-VNs_8FlaTQFg%3D%3D&im=1&li=102&lif=189&sp=1]]>
+                            </Tracking>
+                            <Tracking event="exitFullscreen">
+                                <![CDATA[http://production-beacon-v3.videoamp.com/beacon/exitFullscreen?brid=3ea50c5d-d043-bf4c-edee-84729d32f01c&ca=107&cr=101&data=jANIZnMK4QLA87FYu5lHg9syDNC6gew0pA6Eqw1GdA9QUzWCz51H5OoY3N6rojnisscmvvPOid-lOZtIkqW8a9YZxn5vokhmUmsBss6ddlzNGaQtdA9leSzT0mQ2o25mT8CqGynfl7VIq6mAEdYnzquaoz0_GveJum1UjsNWL9BGYXnds-QHhiYnTvQu6Q%3D%3D&im=1&li=102&lif=189&sp=1]]>
+                            </Tracking>
+                            <Tracking event="expand">
+                                <![CDATA[http://production-beacon-v3.videoamp.com/beacon/expand?brid=3ea50c5d-d043-bf4c-edee-84729d32f01c&ca=107&cr=101&data=Gjd7zCZm1JBNCQHltKAWDSxjDyH11R0xBn7TB094U2x-XcGvbic1ifqhGxGnRx4eDxVmlLhlmKV_577pGfp2JezXp9G-PXO_1wa6fXUfVIV4inzcqKJ51JYqPDV_FM0SZscgN-5lVwn61y0KXHi2ABy4dPMz6S2O2Urp4rDB0nqMbQmQ-hKRBrThQAx3qw%3D%3D&im=1&li=102&lif=189&sp=1]]>
+                            </Tracking>
+                            <Tracking event="collapse">
+                                <![CDATA[http://production-beacon-v3.videoamp.com/beacon/collapse?brid=3ea50c5d-d043-bf4c-edee-84729d32f01c&ca=107&cr=101&data=zG7joIGfCc9jwnzvGSK5SwDsHEPUF-hnYLxvzcwFARe4vbiYMqznmTrEt67-zzX17Z6NDs9lf_VR55h3LbbTpaaT-CAwbzi666FqslHFlD55HAZbwCaT52pPWhH9xV6rwe2HEm0DVOTtBPWaAEgMYlvlicUQh7okjqekJjJAJ8jAUvwIPAFhQmR-GYui_g%3D%3D&im=1&li=102&lif=189&sp=1]]>
+                            </Tracking>
+                            <Tracking event="acceptInvitation">
+                                <![CDATA[http://production-beacon-v3.videoamp.com/beacon/acceptInvitation?brid=3ea50c5d-d043-bf4c-edee-84729d32f01c&ca=107&cr=101&data=2q4daPx9cBjp-bHcG2lzVyUicfBmrWpvb-lWxGNChpN5ZXtE1mVX7MMGrQRxdqFUJ3TzFgIbxPr7DIzZAoT3YUnvO9PP2S8SM6BpdidW6HCm6nRuJrPFE5cYFYe_qvaJTd5FYrfaSWnAWgH3Ho0fCKTdHNpPSSvQEuEQ_eoXm1njK-PeIwyRwGeAzyXVjA%3D%3D&im=1&li=102&lif=189&sp=1]]>
+                            </Tracking>
+                            <Tracking event="close">
+                                <![CDATA[http://production-beacon-v3.videoamp.com/beacon/close?brid=3ea50c5d-d043-bf4c-edee-84729d32f01c&ca=107&cr=101&data=qlOFrvxo5fxCV6ROY2gpMcxgU5IEtcsvWaEhCl6IkT63WpAxp8TVCry3UwPH-45YFpuNXB4FH49ssT6ca2arHmrjUmOmDLzUI6tLK0QTVpywvyYkKW5CwmHraTSYnzP8QLJ_D4FKOJKjWr3_BEMuaamsHuphTf7eXGhnhfMdI8QApT0QBUlieU41mJUu7Q%3D%3D&im=1&li=102&lif=189&sp=1]]>
+                            </Tracking>
+                            <Tracking event="skip">
+                                <![CDATA[http://production-beacon-v3.videoamp.com/beacon/skip?brid=3ea50c5d-d043-bf4c-edee-84729d32f01c&ca=107&cr=101&data=fwOSRUMUhRJgkmf_XeeH_pH8opASt8e1TkNKOGicHED2gy2-CClPLUPAJFIwjizJtrImY38aQ8eKlUbnIdqBe3vQlvU7NnJJwdL1fYcigOp6bLUdjFCRZNINoCDdCppcgsASjF0Cm7CjgJE3cn9eeiT4_q8RPcw3mjd235UtHPcZvkWxhYZxixGucmY-lQ%3D%3D&im=1&li=102&lif=189&sp=1]]>
+                            </Tracking>
+                            <Tracking event="progress">
+                                <![CDATA[http://production-beacon-v3.videoamp.com/beacon/progress?brid=3ea50c5d-d043-bf4c-edee-84729d32f01c&ca=107&cr=101&data=dnmbIR6TxlfnOFe3eXLvhOjTp-2yqGaCb2i_-aqbjjfxnqfFLmYy0WnFCEJhw9oBWgCYtqiHg18U0rOlIgxkn7Dg83aLTaNTyQ2qZV3VhCqL7UYZgd8wrynMKUCicPB_t6X3pKQELR1wx7ECz53sxO9YETEscIrAlxcLDE_yTc4BrxXwDiAqGuE9Chpbtw%3D%3D&im=1&li=102&lif=189&sp=1]]>
+                            </Tracking>
+                            <Tracking event="acceptInvitationLinear">
+                                <![CDATA[http://production-beacon-v3.videoamp.com/beacon/acceptInvitationLinear?brid=3ea50c5d-d043-bf4c-edee-84729d32f01c&ca=107&cr=101&data=9sgeEH78cUWQFPM5ZACeP_d0VmgFpX1CsLdxf_paUKrZE6TJfl3zeizTXICGOjBf75uWEAcCl0l2q0sVH_E7E9FOUyyzY2-Lzrpx1ukEPnEMQhm5QQuWujhewIg1lQMI5JuQqbeUYTyMZZ0DEN29VkCf1Yy4zd7Mw_VWKtMri4JaEK4KcjLPgimjSYUedg%3D%3D&im=1&li=102&lif=189&sp=1]]>
+                            </Tracking>
+                            <Tracking event="closeLinear">
+                                <![CDATA[http://production-beacon-v3.videoamp.com/beacon/closeLinear?brid=3ea50c5d-d043-bf4c-edee-84729d32f01c&ca=107&cr=101&data=L2pnhQlIWNwJ7qKEoFD1u_lJcnhKSQ4Kh7UWeaCmgo40E3RVSa39REuF7PoynEqkRPYViKoD7T8zR8ywWdjRuy-J3Za_G0WlDfbGoF0O5V4ZjDM3E5wpXG7kLGI4R0za4XEgt1VhNYnTPY9Ivag2-Go1RwSYO9dRfGWN4a8vgCRFQOD2TMQzWRCHbsXXkg%3D%3D&im=1&li=102&lif=189&sp=1]]>
+                            </Tracking>
+                        </TrackingEvents>
+                        <VideoClicks>
+                            <ClickThrough></ClickThrough>
+                            <ClickTracking>
+                                <![CDATA[http://production-beacon-v3.videoamp.com/beacon/click?brid=3ea50c5d-d043-bf4c-edee-84729d32f01c&ca=107&cr=101&data=xCZZCUdLw2-dp5SOnMmXrNFU6Tiae8g543_cpE1AEEOwHMvb5ENE4PRT-P7Um5QReG6DIJ6FJbkEbIb_AjUbutuE5ngj36vCNwSl9zAnfFHBIQr-DRsQxXrhM3prMnaP8_-5agwl4Yo5U8ojbANVQS5GtgCf_tCwptmmFiVCRmjcyi0TMMsSsg_tfi8e2g%3D%3D&im=1&li=102&lif=189&sp=1]]>
+                            </ClickTracking>
+                        </VideoClicks>
+                    </Linear>
+                </Creative>
+            </Creatives>
+            <Extensions></Extensions>
+        </Wrapper>
+    </Ad>
+</VAST>
+
+						</textarea>
+						<button id="loadAds">loadAds(newAdTag)</button>
 					</div>
 					<div class="margin-top-10">
 						<button id="mute">setMute(true)</button>

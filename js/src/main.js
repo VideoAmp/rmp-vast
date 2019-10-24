@@ -1,4 +1,4 @@
-import FW from './fw/fw'; 
+import FW from './fw/fw';
 import ENV from './fw/env';
 import HELPERS from './utils/helpers';
 import PING from './tracking/ping';
@@ -57,7 +57,7 @@ import ICONS from './creatives/icons';
     }
     // reset instance variables - once per session
     DEFAULT.instanceVariables.call(this);
-    // reset loadAds variables - this is reset at addestroyed 
+    // reset loadAds variables - this is reset at addestroyed
     // so that next loadAds is cleared
     DEFAULT.loadAdsVariables.call(this);
     // handle fullscreen events
@@ -132,7 +132,7 @@ import ICONS from './creatives/icons';
       const linear = currentCreative.getElementsByTagName('Linear');
       // for now we ignore CreativeExtensions tag
       //let creativeExtensions = currentCreative.getElementsByTagName('CreativeExtensions');
-      // we expect 1 Linear or NonLinearAds tag 
+      // we expect 1 Linear or NonLinearAds tag
       if (nonLinearAds.length === 0 && linear.length === 0) {
         PING.error.call(this, 101);
         VASTERRORS.process.call(this, 101);
@@ -269,7 +269,7 @@ import ICONS from './creatives/icons';
         this.runningAdPod = true;
         // clone array for purpose of API exposure
         this.adPodApiInfo = [...this.adPod];
-        // so we are in a pod but it may come from a wrapper so we need to ping 
+        // so we are in a pod but it may come from a wrapper so we need to ping
         // wrapper trackings for each Ad of the pod
         this.adPodWrapperTrackings = [...this.trackingTags];
         // reduced adPod length to maxNumItemsInAdPod
@@ -322,7 +322,7 @@ import ICONS from './creatives/icons';
 
     const inline = retainedAd.getElementsByTagName('InLine');
     const wrapper = retainedAd.getElementsByTagName('Wrapper');
-    // 1 InLine or Wrapper element must be present 
+    // 1 InLine or Wrapper element must be present
     if (inline.length === 0 && wrapper.length === 0) {
       // in case this is a wrapper we need to ping for errors on originating tags
       PING.error.call(this, 101);
@@ -356,10 +356,10 @@ import ICONS from './creatives/icons';
 
     // Required InLine Elements are AdSystem, AdTitle, Impression, Creatives
     // Required Wrapper Elements are AdSystem, vastAdTagURI, Impression
-    // however in real word some adTag do not have impression or adSystem/adTitle tags 
-    // especially in the context of multiple redirects - since the IMA SDK allows those tags 
+    // however in real word some adTag do not have impression or adSystem/adTitle tags
+    // especially in the context of multiple redirects - since the IMA SDK allows those tags
     // to render we should do the same even if those adTags are not VAST-compliant
-    // so we only check and exit if missing required information to display ads 
+    // so we only check and exit if missing required information to display ads
     if (this.isWrapper) {
       if (this.vastAdTagURI.length === 0) {
         PING.error.call(this, 101);
@@ -517,7 +517,7 @@ import ICONS from './creatives/icons';
 
   const _onDestroyLoadAds = function (vastUrl) {
     this.container.removeEventListener('addestroyed', this.onDestroyLoadAds);
-    this.loadAds(vastUrl);
+    this.loadAds(vastXml);
   };
 
   window.RmpVast.prototype.loadAds = function (vastUrl) {
@@ -551,6 +551,81 @@ import ICONS from './creatives/icons';
       CONTENTPLAYER.preventSeekingForCustomPlayback.call(this);
     }
     _makeAjaxRequest.call(this, vastUrl);
+  };
+
+  const _onDestroyLoadVASTXml = function (vastXml) {
+    this.container.removeEventListener('addestroyed', this.onDestroyLoadAds);
+    this.loadVASTXml(vastXml);
+  };
+
+  window.RmpVast.prototype.loadVASTXml = function (vastXml) {
+    if (DEBUG) {
+      FW.log('loadAds starts');
+    }
+    // if player is not initialized - this must be done now
+    if (!this.rmpVastInitialized) {
+      this.initialize();
+    }
+    // if an ad is already on stage we need to clear it first before we can accept another ad request
+    if (this.getAdOnStage()) {
+      this.onDestroyLoadAds = _onDestroyLoadVASTXml.bind(this, vastXml);
+      this.container.addEventListener('addestroyed', this.onDestroyLoadAds);
+      this.stopAds();
+      return;
+    }
+    // for useContentPlayerForAds we need to know early what is the content src
+    // so that we can resume content when ad finishes or on aderror
+    const contentCurrentTime = CONTENTPLAYER.getCurrentTime.call(this);
+    if (this.useContentPlayerForAds) {
+      this.currentContentSrc = this.contentPlayer.src;
+      if (DEBUG) {
+        FW.log('currentContentSrc is ' + this.currentContentSrc);
+      }
+      this.currentContentCurrentTime = contentCurrentTime;
+      if (DEBUG) {
+        FW.log('currentContentCurrentTime is ' + this.currentContentCurrentTime);
+      }
+      // on iOS we need to prevent seeking when linear ad is on stage
+      CONTENTPLAYER.preventSeekingForCustomPlayback.call(this);
+    }
+
+    // we check for required VAST URL and API here
+    // as we need to have this.currentContentSrc available for iOS
+    if (typeof vastXml !== 'string' || vastXml === '') {
+      VASTERRORS.process.call(this, 1001);
+      return;
+    }
+    if (!FW.hasDOMParser()) {
+      VASTERRORS.process.call(this, 1002);
+      return;
+    }
+    HELPERS.createApiEvent.call(this, 'adtagstartloading');
+    this.isWrapper = false;
+    this.vastAdTagURI = null;
+    this.adTagUrl = "embedded vast tag";
+
+    if (DEBUG) {
+      FW.log('VAST loaded from ' + this.adTagUrl);
+    }
+    HELPERS.createApiEvent.call(this, 'adtagloaded');
+
+    let xml;
+    try {
+      // Parse XML
+      const parser = new DOMParser();
+      xml = parser.parseFromString(vastXml, 'text/xml');
+      if (DEBUG) {
+        FW.log('parsed XML document follows');
+        FW.log(xml);
+      }
+    } catch (e) {
+      FW.trace(e);
+      // in case this is a wrapper we need to ping for errors on originating tags
+      PING.error.call(this, 100);
+      VASTERRORS.process.call(this, 100);
+      return;
+    }
+    _onXmlAvailable.call(this, xml);
   };
   /* module:begins */
 })();
